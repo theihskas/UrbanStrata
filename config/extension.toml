@@ -1,0 +1,98 @@
+# SPDX-FileCopyrightText: Copyright (c) 2024 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: LicenseRef-NvidiaProprietary
+#
+# NVIDIA CORPORATION, its affiliates and licensors retain all intellectual
+# property and proprietary rights in and to this material, related
+# documentation and any modifications thereto. Any use, reproduction,
+# disclosure or distribution of this material and related documentation
+# without an express license agreement from NVIDIA CORPORATION or
+# its affiliates is strictly prohibited.
+
+[package]
+title = "UrbanStrata Traffic Digital Twin"
+version = "0.1.0"  # Semantic Versioning is used: https://semver.org/
+description = "Interactive 3D traffic, noise, equity and risk digital twin for rapid transport planning (NVIDIA Omniverse)."
+category = "Example"  # How to categorize this in the Extension Manager
+changelog = "docs/CHANGELOG.md"
+icon = "data/icon.png"  # Icon to show in the Extension Manager
+keywords = ["kit", "example", "extension", "python", "ui"]  # Search keywords for the Extension Manager
+preview_image = "data/preview.png"  # Preview to show in the Extension Manager
+readme  = "docs/README.md"  # Path (relative to the root) or content of readme markdown file for UI
+repository = "https://github.com/theihskas/UrbanStrata"  # URL of the extension source repository
+
+
+[dependencies]
+"omni.kit.commands" = {}
+"omni.kit.selection" = {}
+"omni.kit.pipapi" = {}
+"omni.ui" = {}
+"omni.usd" = {}
+"omni.kit.uiapp" = {}
+"omni.kit.pip_archive" = {}
+"omni.kit.widgets.custom" = {}
+"cesium.omniverse" = {}
+
+[python.pip_requirements]
+"fastapi" = ">=0.104.0"
+"pydantic" = ">=2.0.0"
+"pandas" = ">=1.5.0"
+"numpy" = ">=1.21.0"
+"networkx" = ">=2.8.0"
+
+[settings]
+exts."omni.example.hello".enabled = false
+extension.enabled = true
+app.useFabricSceneDelegate = true
+app.usdrt.scene_delegate.enableProxyCubes = false
+app.usdrt.scene_delegate.geometryStreaming.enabled = false
+omnihydra.parallelHydraSprimSync = false
+
+[[python.module]]  # Main python module this extension provides, it will be publicly available as "import my_rapidex.my_python_ui_extension"
+name = "my_rapidex.my_python_ui_extension"
+
+[python.pipapi]
+use_online_index = false
+requirements = [
+    # "rapidxpy" is a private module and is not installed automatically (see README)
+    "networkx",
+    "geopandas"
+]
+
+[python.pipapi.repositories]
+"" = "https://pypi.org/simple/"
+
+[fswatcher.patterns]
+include = ["*.py", "*.toml"]
+exclude = ["**/__pycache__/**"]
+
+
+# UI settings
+[ui]
+name = "RapidXPy Traffic Digital Twin"
+icon = "data/icon.png"
+tooltip = "Traffic modeling digital twin with automatic network loading"
+
+[[python.pip_archive]]
+args = "--find-links https://pypi.nvidia.com"
+
+[python.pip_archive."fastapi"]
+args = "--upgrade"
+
+[python.pip_archive."uvicorn"]
+args = "--upgrade"
+
+[documentation]
+pages = [
+    "docs/Overview.md",
+    "docs/CHANGELOG.md",
+]
+
+
+[[test]]
+dependencies = [
+    "omni.kit.test",
+    "omni.kit.ui_test"  # UI testing extension
+]
+
+args = [
+]

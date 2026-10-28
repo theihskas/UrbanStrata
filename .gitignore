@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+
+# Secrets and local settings
+.env
+*.env
+!.env.example
+.claude/
+.vscode/
+
+# Private modelling module (not public)
+rapidxpy/
+
+# Generated outputs and large data
+*.jar
+*.usd
+*.usda
+*.usdc
+outputs/
+results/
+*.tif
+*.tiff
