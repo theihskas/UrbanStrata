@@ -48,10 +48,12 @@ UrbanStrata is an NVIDIA Omniverse extension that turns transport-model outputs 
 * **NVIDIA Isaac Sim 4.5+**
 * **Cesium for Omniverse** (`cesium.omniverse` extension enabled)
 * **Local Ollama Server** (Optional, required for the AI Command Interface. Must be running `ollama serve` locally)
-* **API Keys** (Optional but recommended):
-  * TomTom, Mapbox, or Google (for real-world Travel Time fetches)
-  * Anthropic API Key (for the Q&A Chatbot)
-  * Keys are read from environment variables; copy `.env.example` to `.env` and fill in your own keys. Never commit `.env`.
+* **API Keys** (optional, needed only for the features below). **No keys are included in this repository – create your own:**
+  * **TomTom** (travel times): register at https://developer.tomtom.com and create an API key.
+  * **Google Maps Platform** (alternative travel-time source): create a project and API key at https://console.cloud.google.com.
+  * **Mapbox** (alternative travel-time source / terrain tiles): create an access token at https://account.mapbox.com.
+  * **Anthropic** (optional Q&A chatbot): create an API key at https://console.anthropic.com.
+  * **How to provide them:** paste the key into the *API key* field of the *Travel Time Operations* panel, or set environment variables before launching Omniverse (names listed in `.env.example`), e.g. in PowerShell: `setx TOMTOM_API_KEYS "<your-key>"`. Keep your keys private and never commit them.
 * **RapidXPy** (optional, not included – see the note above). Other Python dependencies (pandas, geopandas, osmnx, networkx, etc.) are installed automatically via `omni.kit.pipapi` on startup.
 
 ---
