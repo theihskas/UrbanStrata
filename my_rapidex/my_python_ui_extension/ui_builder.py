@@ -260,19 +260,6 @@ def build_main_window(ext, rapidx_available, core_available):
                         ext._advanced_status = ui.Label(
                             "Advanced: Ready", height=20, style={"color": 0xFF88CCAA})
 
-                # ── Multi-Modal Analysis ──────────────────────────────────
-                with ui.CollapsableFrame("Multi-Modal Analysis", collapsed=True, style=F):
-                    with ui.VStack(spacing=5):
-                        ui.Label("GTFS folder:")
-                        ext._gtfs_dir_input = ui.StringField()
-                        ext._gtfs_dir_input.model.set_value("D:/gtfs")
-                        ui.Button("Compute GTFS Zone Metrics",
-                                  clicked_fn=ext._run_gtfs_metrics, height=30, style=S)
-                        ui.Button("Run Mode Split",
-                                  clicked_fn=ext._run_mode_split, height=30, style=S)
-                        ext._multimodal_status = ui.Label(
-                            "Multi-Modal: Ready", height=20, style={"color": 0xFF88CCAA})
-
                 # ── Accessibility Analysis ────────────────────────────────
                 with ui.CollapsableFrame("Accessibility Analysis", collapsed=True, style=F):
                     with ui.VStack(spacing=5):

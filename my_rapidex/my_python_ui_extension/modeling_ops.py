@@ -66,22 +66,6 @@ def run_robustness(project_dir):
     except Exception as exc:
         return False, f"Robustness failed: {exc}"
 
-def run_gtfs_metrics(gtfs_folder, zones_geojson):
-    try:
-        from rapidxpy.scripts.core import multi_modal as _multimodal
-        metrics = _multimodal.calculate_gtfs_zone_metrics(gtfs_folder, zones_geojson)
-        return True, f"GTFS metrics computed for {len(metrics)} zones"
-    except Exception as exc:
-        return False, f"GTFS metrics failed: {exc}"
-
-def run_mode_split(project_dir, gtfs_folder, zones_geojson):
-    try:
-        from rapidxpy.scripts.core import multi_modal as _multimodal
-        _multimodal.run_mode_split(zones_geojson=zones_geojson, gtfs_folder=gtfs_folder if os.path.isdir(gtfs_folder) else None, output_folder=os.path.join(project_dir, "ModeSplit"))
-        return True, "Mode split complete"
-    except Exception as exc:
-        return False, f"Mode split failed: {exc}"
-
 def run_accessibility(project_dir, zones, centroids, api):
     try:
         from rapidxpy.scripts.core import accessibility as _accessibility

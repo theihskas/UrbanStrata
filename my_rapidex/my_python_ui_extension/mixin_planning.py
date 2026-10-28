@@ -144,24 +144,6 @@ class PlanningMixin:
         ok, msg = _modeling_ops.run_robustness(project_dir)
         self._advanced_status.text = msg
 
-    # ── Multi-modal ───────────────────────────────────────────────────────────
-
-    def _run_gtfs_metrics(self):
-        _, project_dir = self._get_project_dir()
-        gtfs_folder   = self._gtfs_dir_input.model.get_value_as_string()
-        zones_geojson = self._find_zones_geojson(project_dir)
-        self._multimodal_status.text = "Computing GTFS zone metrics..."
-        ok, msg = _modeling_ops.run_gtfs_metrics(gtfs_folder, zones_geojson)
-        self._multimodal_status.text = msg
-
-    def _run_mode_split(self):
-        _, project_dir = self._get_project_dir()
-        gtfs_folder   = self._gtfs_dir_input.model.get_value_as_string()
-        zones_geojson = self._find_zones_geojson(project_dir)
-        self._multimodal_status.text = "Running mode split..."
-        ok, msg = _modeling_ops.run_mode_split(project_dir, gtfs_folder, zones_geojson)
-        self._multimodal_status.text = msg
-
     # ── Accessibility ─────────────────────────────────────────────────────────
 
     def _run_accessibility(self):
