@@ -6,6 +6,16 @@ UrbanStrata is an NVIDIA Omniverse extension that turns transport-model outputs 
 
 > **Note on RapidXPy.** Demand estimation and traffic assignment are provided by **RapidXPy**, a Python implementation of Rapidex (Waller et al., 2021). RapidXPy is **not part of this repository** and is not open source. Without it, the extension can still load and visualise existing model outputs (GeoJSON); functions that download networks, fetch travel times or run demand estimation and assignment require RapidXPy. Contact the authors (TU Dresden, Chair of Transport Modelling and Simulation) for access.
 
+## Using your own demand model instead of RapidXPy
+
+RapidXPy is only one possible back end. If you do not have access to it, or prefer another tool (e.g. your own OD estimation, SUMO, MATSim, Visum, AequilibraE), you can link that tool instead:
+
+1. **Network** – provide the road network as `edges.geojson` (LineString features with the properties `from`, `to`, `lanes` and `capacity`) and `nodes.geojson` in the network folder.
+2. **Assignment results** – write link volumes to a CSV named `LinkResults.csv` (or `Elite0LinkResults.csv`) anywhere inside the results folder, with a from-node column (`from`, `from_node`, `init_node`, `a`, …), a to-node column (`to`, `to_node`, `term_node`, `b`, …) and a volume column (`volume`, `flow`, `assigned_volume`, `pcu`, …). Node IDs must match `edges.geojson`.
+3. **Hook your tool into the buttons (optional)** – replace the RapidXPy calls in `run_pcu_estimation()` and `run_assignment()` in `my_rapidex/my_python_ui_extension/modeling_ops.py` with calls to your own estimation and assignment routines, so that *PCU Estimate*, *MSA Assign* and *Full Plan* run your tool and write the files above.
+
+Once these files exist, the 3D traffic, congestion, noise, equity and network-design views work as described below.
+
 ## Features
 
 ### 🏙️ Urban Context & Topology
