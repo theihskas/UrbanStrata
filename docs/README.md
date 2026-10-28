@@ -11,7 +11,7 @@ This extension integrates **RapidXPy** into Omniverse, providing a rich, dockabl
 * **Automated City Building:** Download OpenStreetMap (OSM) road networks and building footprints directly into USD using automated Python subprocesses.
 * **Geospatial Context:** Seamless integration with Cesium for Omniverse to place networks accurately on WGS-84 Google Photorealistic 3D Tiles.
 * **Traffic Assignment:** Run Genetic Algorithm-based PCU estimations and traffic assignments (MSA, FW, CFW) using the RapidXPy core.
-* **Transit & Accessibility:** Route generation and isochrone mapping using OpenTripPlanner (OTP), plus multi-modal GTFS analysis.
+* **Accessibility:** Zone-level accessibility analysis to OpenStreetMap points of interest.
 * **Advanced 3D Visualizations:**
   * **Traffic Flow Particles:** Animated vehicles flowing through edges colored by speed and congestion.
   * **Animated Nodes:** Intersection cylinders that pulse and scale based on traffic volume.

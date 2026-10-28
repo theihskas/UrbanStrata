@@ -17,7 +17,6 @@ UrbanStrata is an NVIDIA Omniverse extension that turns transport-model outputs 
 * **Traffic Assignment:** Run PCU estimation (via Genetic Algorithms) and macroscopic traffic assignment algorithms (MSA, FW, CFW, BFW, TAPAS) directly within the Omniverse stage.
 * **Advanced Planning:** Decompose OD demands, refine demand with learning rates, and run network robustness analysis.
 * **Travel Time APIs:** Fetch live or historic travel times using TomTom, Mapbox, or Google APIs to fix network speeds.
-* **Transit Analysis (OTP):** Build OpenTripPlanner graphs, spin up local OTP servers, and run zone-to-zone or point-to-point multi-modal transit analyses. Calculate GTFS zone metrics and mode splits.
 
 ### 🎨 3D Traffic Visualization
 * **Animated Traffic Flows:** Time-stepped particle-based flows (vehicles) traveling along network edges, colored by speed and congestion.
@@ -84,7 +83,7 @@ To maintain modularity and keep the Omniverse UI responsive, the codebase is dec
 * **`extension.py`**: The main entry point. Handles Omniverse lifecycle events (startup/shutdown) and composes the extension using Mixin classes.
 * **Mixins (`mixin_*.py`)**: UI callback groupings injected into the main extension class.
   * `mixin_network.py`: Network downloading, zoning, and travel time fetches.
-  * `mixin_planning.py`: Traffic assignments, transit analysis (OTP), and multi-modal splits.
+  * `mixin_planning.py`: Traffic assignments and planning operations.
   * `mixin_analysis.py`: Environmental analysis (noise, emissions, equity) and visualizations.
   * `mixin_cesium.py`: Cesium georeference and Google Photorealistic 3D Tiles setup.
   * `mixin_nd.py`: Network Design module logic for interactive road edits.
@@ -97,7 +96,7 @@ To maintain modularity and keep the Omniverse UI responsive, the codebase is dec
   * `noise_viz.py` & `noise_raster.py`: 3D noise decay shells, cartographic draping, and GeoTIFF texture overlays.
   * `metrics.py`: Color-coded viewport overlays for equity, accessibility, and carbon.
 * **Core Operations (`*_ops.py`)**:
-  * `network_ops.py` & `modeling_ops.py`: RapidXPy core wrappers for downloading, zoning, traffic assignments, and OTP servers.
+  * `network_ops.py` & `modeling_ops.py`: RapidXPy core wrappers for downloading, zoning and traffic assignments.
   * `analysis_ops.py` & `noise_ops.py`: Gini index calculation, emissions, and CNOSSOS-EU distance-band decay computation (runs in isolated subprocesses).
   * `building_ops.py`: Downloads OSM building footprints and performs noise spatial joins.
   * `ai_ops.py`: Natural language command parsing and Q&A logic using local Ollama models and Anthropic.
