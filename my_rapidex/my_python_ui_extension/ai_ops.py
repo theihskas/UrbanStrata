@@ -61,7 +61,7 @@ def query_chatbot(query, model, city_name):
         f"The user is using RapidXPy for city: {city_name}. "
         f"Available operations: Download Network, Apply Zoning, Load Network (3D USD), "
         f"Fetch Travel Times (TomTom/Google/Mapbox), PCU Estimation (genetic algorithm), "
-        f"MSA/FW/CFW/BFW Traffic Assignment, Fix Network Speeds, Transit Analysis (OTP), "
+        f"MSA/FW/CFW/BFW Traffic Assignment, Fix Network Speeds, "
         f"Accessibility Analysis, Animate Traffic Flow in 3D, Style Intersection Nodes, "
         f"Add Volume Labels, Gini Accessibility, CO₂ Emissions Analysis, "
         f"Noise Leq Analysis, Zone Metric Layers in USD stage. "

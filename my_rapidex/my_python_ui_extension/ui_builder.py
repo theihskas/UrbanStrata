@@ -239,53 +239,6 @@ def build_main_window(ext, rapidx_available, core_available):
                         ext._fix_status = ui.Label(
                             "Fix: Ready", height=20, style={"color": 0xFF88CCAA})
 
-                # ── Transit Analysis (OTP) ────────────────────────────────
-                with ui.CollapsableFrame("Transit Analysis (OTP)", collapsed=True, style=F):
-                    with ui.VStack(spacing=5):
-                        ui.Label("OTP directory:")
-                        ext._otp_dir_input = ui.StringField()
-                        ext._otp_dir_input.model.set_value("D:/otp")
-                        with ui.HStack(spacing=4):
-                            ui.Button("Build Graph",  clicked_fn=ext._build_otp_graph,
-                                      height=30, style=S)
-                            ui.Button("Start Server", clicked_fn=ext._start_otp_server,
-                                      height=30, style=S)
-                            ui.Button("Stop Server",  clicked_fn=ext._stop_otp_server,
-                                      height=30, style=S)
-                        with ui.CollapsableFrame("Transit Parameters",
-                                                 collapsed=True, style=F):
-                            with ui.VStack(spacing=4):
-                                ext._otp_max_walk_input = row(
-                                    "Max walk dist (m):", lambda: ui.IntField(height=22))
-                                ext._otp_max_walk_input.model.set_value(1000)
-                                ext._otp_num_itin_input = row(
-                                    "Itineraries:", lambda: ui.IntField(height=22))
-                                ext._otp_num_itin_input.model.set_value(3)
-                                ext._otp_workers_input = row(
-                                    "Parallel workers:", lambda: ui.IntField(height=22))
-                                ext._otp_workers_input.model.set_value(4)
-                                ext._otp_gql_timeout_input = row(
-                                    "GQL timeout (s):", lambda: ui.IntField(height=22))
-                                ext._otp_gql_timeout_input.model.set_value(30)
-                        ui.Label("Departure (YYYY-MM-DD HH:MM):")
-                        ext._otp_departure_input = ui.StringField()
-                        ext._otp_departure_input.model.set_value(
-                            datetime.now().strftime("%Y-%m-%d %H:%M"))
-                        ui.Button("Zone-to-Zone Transit Analysis",
-                                  clicked_fn=ext._run_transit_zone_analysis,
-                                  height=30, style=S)
-                        ui.Label("Origin (lat,lon):")
-                        ext._otp_origin_input = ui.StringField()
-                        ext._otp_origin_input.model.set_value("51.0504,13.7373")
-                        ui.Label("Destination (lat,lon):")
-                        ext._otp_dest_input = ui.StringField()
-                        ext._otp_dest_input.model.set_value("51.0600,13.7500")
-                        ui.Button("Point-to-Point Transit Route",
-                                  clicked_fn=ext._run_transit_point_analysis,
-                                  height=30, style=S)
-                        ext._transit_status = ui.Label(
-                            "Transit: Ready", height=20, style={"color": 0xFF88CCAA})
-
                 # ── Advanced Planning ─────────────────────────────────────
                 with ui.CollapsableFrame("Advanced Planning", collapsed=True, style=F):
                     with ui.VStack(spacing=5):

@@ -1,7 +1,7 @@
 """
 modeling_ops.py
 ===============
-Wrapper functions for RapidXPy modeling tools (planning, transit, accessibility).
+Wrapper functions for RapidXPy modeling tools (planning, accessibility).
 Removes deep internal rapidxpy dependencies from extension.py.
 """
 import os
@@ -39,45 +39,6 @@ def run_assignment(project_dir, args):
         return False, f"Assignment failed: {exc}"
     finally:
         os.chdir(cwd)
-
-def build_otp_graph(otp_dir):
-    try:
-        from rapidxpy.scripts import transit as _transit
-        _transit.build_graph(Namespace(otp_dir=otp_dir, verbose=True))
-        return True, "OTP graph built"
-    except Exception as exc:
-        return False, f"Build failed: {exc}"
-
-def start_otp_server(otp_dir):
-    try:
-        from rapidxpy.scripts.transit_functions import start_otp_server_background
-        return True, "OTP server started", start_otp_server_background(otp_dir)
-    except Exception as exc:
-        return False, f"Start failed: {exc}", None
-
-def stop_otp_server(process):
-    try:
-        from rapidxpy.scripts.transit_functions import stop_otp_server as _stop
-        _stop(process)
-        return True, "OTP server stopped"
-    except Exception as exc:
-        return False, f"Stop failed: {exc}"
-
-def run_transit_zone_analysis(args):
-    try:
-        from rapidxpy.scripts import transit as _transit
-        _transit.zone_analysis(args)
-        return True, "Zone transit analysis complete"
-    except Exception as exc:
-        return False, f"Zone analysis failed: {exc}"
-
-def run_transit_point_analysis(args):
-    try:
-        from rapidxpy.scripts import transit as _transit
-        _transit.point_analysis(args)
-        return True, "Point transit analysis complete"
-    except Exception as exc:
-        return False, f"Point analysis failed: {exc}"
 
 def run_decompose(project_dir, args):
     try:

@@ -4,7 +4,7 @@ extension.py - RapidXPy Traffic Digital Twin (Isaac Sim / Omniverse Kit)
 Entry point. Callback logic lives in mixin_*.py files:
   mixin_cesium.py   - Cesium setup and camera
   mixin_network.py  - network loading, buildings, travel times
-  mixin_planning.py - traffic planning, transit, metrics viewports
+  mixin_planning.py - traffic planning, metrics viewports
   mixin_analysis.py - noise analysis and traffic visualisation
   mixin_nd.py       - Network Design Module
 """
@@ -116,7 +116,6 @@ class RapidxPyOmniverseExtension(
         self._base_path       = "D:/kit-exts-project3"
         self._network_folder  = None
         self._current_city    = None
-        self._otp_process     = None
         self._link_width      = 3.0
         self._node_radius     = 1.0
         self._boundary_width  = 1.0

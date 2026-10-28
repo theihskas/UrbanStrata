@@ -1,5 +1,5 @@
 """
-mixin_planning.py — Traffic planning, transit, accessibility and metrics callbacks.
+mixin_planning.py — Traffic planning, accessibility and metrics callbacks.
 """
 import os
 import asyncio
@@ -114,70 +114,6 @@ class PlanningMixin:
         self._set_planning_status("Running full plan (PCU + MSA) in background...")
         self._run_pcu_estimation()
         self._set_planning_status("Full plan: PCU + MSA queued")
-
-    # ── Transit / OTP ─────────────────────────────────────────────────────────
-
-    def _build_otp_graph(self):
-        otp_dir = self._otp_dir_input.model.get_value_as_string()
-        self._transit_status.text = "Building OTP graph..."
-        ok, msg = _modeling_ops.build_otp_graph(otp_dir)
-        self._transit_status.text = msg
-
-    def _start_otp_server(self):
-        otp_dir = self._otp_dir_input.model.get_value_as_string()
-        ok, msg, proc = _modeling_ops.start_otp_server(otp_dir)
-        if ok:
-            self._otp_process = proc
-        self._transit_status.text = msg
-
-    def _stop_otp_server(self):
-        if self._otp_process:
-            ok, msg = _modeling_ops.stop_otp_server(self._otp_process)
-            self._otp_process = None
-            self._transit_status.text = msg
-
-    def _run_transit_zone_analysis(self):
-        from datetime import datetime
-        import argparse
-        city_name, project_dir = self._get_project_dir()
-        otp_dir   = self._otp_dir_input.model.get_value_as_string()
-        dep_str   = self._otp_departure_input.model.get_value_as_string()
-        dep_dt    = datetime.strptime(dep_str, "%Y-%m-%d %H:%M")
-        zones_dir = os.path.join(project_dir, "Zones_H3")
-        if not os.path.isdir(zones_dir):
-            zones_dir = os.path.join(project_dir, "Zones_default")
-        args = argparse.Namespace(
-            otp_dir=otp_dir, zones_dir=zones_dir,
-            departure_date=dep_dt.strftime("%Y-%m-%d"),
-            departure_time=dep_dt.strftime("%H:%M:%S"),
-            max_walk_distance=self._otp_max_walk_input.model.get_value_as_int(),
-            num_itineraries=1,
-            workers=self._otp_workers_input.model.get_value_as_int(),
-            output=os.path.join(project_dir, "transit_zone_results.json"),
-            gql_timeout=self._otp_gql_timeout_input.model.get_value_as_int(),
-        )
-        self._transit_status.text = "Running zone-to-zone transit analysis..."
-        ok, msg = _modeling_ops.run_transit_zone_analysis(args)
-        self._transit_status.text = msg
-
-    def _run_transit_point_analysis(self):
-        from datetime import datetime
-        import argparse
-        otp_dir = self._otp_dir_input.model.get_value_as_string()
-        dep_str = self._otp_departure_input.model.get_value_as_string()
-        dep_dt  = datetime.strptime(dep_str, "%Y-%m-%d %H:%M")
-        args = argparse.Namespace(
-            otp_dir=otp_dir,
-            origin=self._otp_origin_input.model.get_value_as_string(),
-            destination=self._otp_dest_input.model.get_value_as_string(),
-            departure_date=dep_dt.strftime("%Y-%m-%d"),
-            departure_time=dep_dt.strftime("%H:%M:%S"),
-            num_itineraries=self._otp_num_itin_input.model.get_value_as_int(),
-            gql_timeout=self._otp_gql_timeout_input.model.get_value_as_int(),
-        )
-        self._transit_status.text = "Running point-to-point transit route..."
-        ok, msg = _modeling_ops.run_transit_point_analysis(args)
-        self._transit_status.text = msg
 
     # ── Advanced planning ─────────────────────────────────────────────────────
 
